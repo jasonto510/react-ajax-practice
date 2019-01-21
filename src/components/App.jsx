@@ -21,7 +21,7 @@ class App extends React.Component {
 //Need to initialize the original state with the name and message properties;
   this.state = {
     name: "",
-    message: ""
+    message: "",
   };
   //Necessary to make this work in the callback
   this.handleNameChange = this.handleNameChange.bind(this);
@@ -50,21 +50,21 @@ class App extends React.Component {
   handleSubmit(event){
     event.preventDefault();
 
-    var response = {
-      name: this.state.name,
-      message: this.state.message
+    var newMessage = {
+      'name': this.state.name,
+      'message': this.state.message
     }
 
     $.ajax({
       url: "http://ec2-13-57-25-101.us-west-1.compute.amazonaws.com:3000/api/hrsf110/greeting",
       type: 'POST',
-      data: JSON.stringify(response),
+      data: JSON.stringify(newMessage),
       contentType: 'application/json',
       success: function(){
-        console.log("message receieved", response);
+        console.log("message receieved", newMessage);
       },
       error: function(){
-        console.log("message failed, try again", response)
+        console.log("message failed, try again", newMessage)
       }
     })  
   };
