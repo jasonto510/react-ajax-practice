@@ -22,18 +22,14 @@ class App extends React.Component {
   this.state = {
     name: "",
     message: "",
+    response: ""
   };
   //Necessary to make this work in the callback
   this.handleNameChange = this.handleNameChange.bind(this);
-  this.handleMessageChange = this.handleNameChange.bind(this)
+  this.handleMessageChange = this.handleMessageChange.bind(this)
   this.handleSubmit = this.handleSubmit.bind(this);
 }
 
-    // function handleSubmit(e){
-    //   e.preventDefault();
-    //   console.log('this worked')
-    // } 
-  
   handleNameChange(event){
     this.setState({
       name: event.target.value
@@ -54,6 +50,7 @@ class App extends React.Component {
       'name': this.state.name,
       'message': this.state.message
     }
+    this.setState({response: newMessage})
 
     $.ajax({
       url: "http://ec2-13-57-25-101.us-west-1.compute.amazonaws.com:3000/api/hrsf110/greeting",
@@ -85,21 +82,23 @@ class App extends React.Component {
 
     return(
     <div>
-    <label> Name:    
+
+      <label> Name:    
         <input
-            //Setting the default value or name and message
-            type = "text"
-            value = {this.state.name}
-            onChange = {this.handleNameChange}
-         />  
+          type = "text"
+          value = {this.state.name}
+          onChange = {this.handleNameChange}
+        />  
            Message:
         <input 
-           type = "text"
-            value = {this.handleSubmit.message}
-            onChange = {this.handleMessageChange}           
+          type = "text"
+          value = {this.handleSubmit.message}
+          onChange = {this.handleMessageChange}           
         />       
-  	  <button onClick={this.handleSubmit}>Send Message</button>
-    </label>   
+      </label>   
+  	    <button onClick={this.handleSubmit}>Send Message</button>
+      <div>  {this.state.response} </div>
+
     </div>
   );
 
